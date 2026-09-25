@@ -1,0 +1,8 @@
+[project]
+name = "vehicle-insurance"
+version = "0.0.1"
+description = "An MLOps project for productionizing models"
+authors = [{name = "Ritesh Ray", email = "ray.ritesh007@gmail.com"}]
+
+[tool.setuptools]
+packages = {find = {}}
