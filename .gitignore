@@ -9,7 +9,9 @@ __pycache__/
 # folders to ignore
 notes/
 workflow.txt
-
+artifact/
+notebook/
+logs/
 
 # Distribution / packaging
 .Python
