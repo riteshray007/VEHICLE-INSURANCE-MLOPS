@@ -13,6 +13,7 @@ from src.data_access.proj1_data import Proj1Data
 class DataIngestion:
     def __init__(self,data_ingestion_config:DataIngestionConfig=DataIngestionConfig()):
         """
+        constructor
         :param data_ingestion_config: configuration for data ingestion
         """
         try:

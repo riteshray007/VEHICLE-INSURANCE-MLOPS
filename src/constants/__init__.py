@@ -3,7 +3,7 @@ from datetime import datetime
 
 # for mongodb connection
 DATABASE_NAME  = 'Proj1'
-COLLECTION_NAME = 'Proj1-Data'
+# COLLECTION_NAME = 'Proj1-Data'
 MONGODB_URL_KEY = 'MONGODB_URL'
 
 PIPELINE_NAME: str = ""
@@ -24,5 +24,8 @@ DATA_INGESTION_INGESTED_DIR:str='ingested'
 DATA_INGESTION_TRAIN_TEST_SPLIT_RATIO:float= 0.25
 
 
+# data validation related constants 
+DATA_VALIDATION_DIR_NAME:str='data_validation'
+DATA_VALIDATION_REPORT_FILE_NAME:str='report.yaml'
 
 

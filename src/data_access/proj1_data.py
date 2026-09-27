@@ -9,7 +9,7 @@ from src.exception import MyException
 
 class Proj1Data:
       """
-      A class to export MongoDB records as a pandas DataFrame.
+      A class to export MongoDB(proj1 is the name of the db hosted in mongodb atlas) records as a pandas DataFrame.
       """
       
       def __init__(self)->None:
