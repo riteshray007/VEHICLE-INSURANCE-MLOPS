@@ -28,6 +28,13 @@ categorical_columns:
   - Vehicle_Age
   - Vehicle_Damage
 
+ordinal_columns:
+  - Vehicle_Age
+
+ohe_columns:
+  - Gender
+  - Vehicle_Damage
+
 drop_columns: _id
 
 # for data transformation
