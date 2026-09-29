@@ -6,9 +6,11 @@ import pandas as pd
 import dill
 import yaml
 from pandas import DataFrame
+import json
 
 from src.exception import MyException
 from src.logger import logging
+
 
 def read_yaml_file(file_path:str)->dict:
       try:
@@ -87,3 +89,4 @@ def save_obj(file_path:str , obj:object)->None:
             logging.info('exited the save obj method ')
       except Exception as e:
             raise MyException(e,sys) from e
+      

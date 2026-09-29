@@ -42,3 +42,15 @@ DATA_TRANSFORMATION_TRANSFORMED_OBJECT_DIR: str = "transformed_object"
 PREPROCSSING_OBJECT_FILE_NAME = "preprocessing.pkl"
 TRAIN_FILE_NAME: str = "train.csv"
 TEST_FILE_NAME: str = "test.csv"
+
+
+# model training realated constants 
+
+MODEL_TRAINER_DIRNAME:str = "model_trainer"
+MODEL_TRAINER_TRAINED_MODEL_DIR:str = "trained_model"
+MODEL_TRAINER_TRAINED_MODEL_NAME:str = "model.pkl"
+MODEL_TRAINER_TRAINED_MODEL_METRICS:str = 'metrics.yaml'
+MODEL_TRAINER_EXPECTED_SCORE:float = 0.7
+BEST_PARAMS_PATH = os.path.join("config", "model.yaml")
+
+
