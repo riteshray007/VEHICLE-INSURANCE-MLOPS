@@ -12,8 +12,9 @@ from sklearn.model_selection import RandomizedSearchCV
 from sklearn.metrics import accuracy_score , recall_score,precision_score,f1_score
 from src.constants import MODEL_TRAINER_EXPECTED_SCORE
 from src.entity.config_entity import ModelTrainerConfig
+from src.entity.estimator import MyModel
 from src.entity.artifact_entity import ModelTrainerArtifact , ClasificationMetricArtifact , DataTransformationArtifact
-from src.utils.main_utils import load_numpy_array_data, save_obj ,read_yaml_file , write_yaml_file
+from src.utils.main_utils import load_numpy_array_data, save_obj ,read_yaml_file , write_yaml_file ,load_object
 
 class ModelTraining:
       
@@ -99,7 +100,14 @@ class ModelTraining:
                         accuracy = accuracy , f1_score = f1 , precision_score = precision , recall_score = recall
                   )
                   
-                  return  model , metrics                 
+                  preprocessor_obj = load_object(self.data_transformation_artifact.transformed_object_file_path)
+                  logging.info('preprocessing obj loaded successful')
+                  
+                  mymodel = MyModel( preprocessor_obj , model )
+                  logging.info(' wrapped model and preprocessing obj together')
+                  
+                  logging.info(' saved  and returned the wrapper obj and not the model obj alone ')
+                  return  mymodel , metrics             
                   
             except Exception as e:
                   raise MyException(e,sys) from e
@@ -111,13 +119,13 @@ class ModelTraining:
                 test =  load_numpy_array_data(self.data_transformation_artifact.transformed_test_file_path)        
           
                 trained_model , metrics = self.get_model_object_and_report(train,test)
-                 
-                save_obj(self.model_trainer_config.trained_model_file_path   , trained_model )
-                write_yaml_file(self.model_trainer_config.metrics_file_path,metrics)
-                
+
                 if metrics.accuracy < MODEL_TRAINER_EXPECTED_SCORE:
                       logging.info('model accuracy below minimum threshold limit')
                       raise Exception("model accuracy below minimum threshold limit")
+                 
+                save_obj(self.model_trainer_config.trained_model_file_path   , trained_model )
+                write_yaml_file(self.model_trainer_config.metrics_file_path, asdict(metrics))                
                 
                 model_trainer_artifact = ModelTrainerArtifact(
                       trained_model_file_path=self.model_trainer_config.trained_model_file_path,

@@ -30,6 +30,8 @@ list_of_files = [
       f"{project_name}/pipeline/training_pipeline.py",
       f"{project_name}/utils/__init__.py",
       f"{project_name}/utils/main_utils.py",
+      f"{project_name}/cloud_storage/__init__.py",
+      f"{project_name}/cloud_storage/aws_storage.py",
       "app.py",
       "requirements.txt",
       "demo.py",

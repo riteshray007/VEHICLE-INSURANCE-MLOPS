@@ -14,7 +14,7 @@ class DataValidationArtifact:
     
 @dataclass
 class DataTransformationArtifact:
-    transformed_object_file_path:str 
+    transformed_object_file_path:str    #preprocessor.pkl file path
     transformed_train_file_path:str
     transformed_test_file_path:str
         
@@ -32,4 +32,16 @@ class ModelTrainerArtifact:
     trained_model_file_path:str
     metric_artifact:ClasificationMetricArtifact
     
-    
+
+@dataclass
+class ModelEvaluationArtifact:
+    is_model_accepted:bool
+    changed_accuracy:float
+    changed_f1_score:float
+    s3_model_path:str 
+    trained_model_path:str
+
+@dataclass
+class ModelPusherArtifact:
+    bucket_name:str
+    s3_model_path:str

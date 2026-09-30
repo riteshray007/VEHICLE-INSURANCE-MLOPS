@@ -54,3 +54,14 @@ MODEL_TRAINER_EXPECTED_SCORE:float = 0.7
 BEST_PARAMS_PATH = os.path.join("config", "model.yaml")
 
 
+# aws credentials
+AWS_ACCESS_KEY_ID_ENV_KEY = "AWS_ACCESS_KEY_ID"
+AWS_SECRET_ACCESS_KEY_ENV_KEY = "AWS_SECRET_ACCESS_KEY"
+REGION_NAME = "us-east-1"
+
+"""
+MODEL Evaluation related constants
+"""
+MODEL_EVALUATION_CHANGED_THRESHOLD_SCORE: float = 0.02
+MODEL_BUCKET_NAME = "vehicle-insurance-proj-s3"
+MODEL_PUSHER_S3_KEY = "model-registry"
