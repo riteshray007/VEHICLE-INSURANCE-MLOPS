@@ -9,8 +9,6 @@ MONGODB_URL_KEY = 'MONGODB_URL'
 PIPELINE_NAME: str = ""
 ARTIFACT_DIR: str = "artifact"
 
-MODEL_FILE_NAME = "model.pkl"
-
 TARGET_COLUMN = "Response"
 CURRENT_YEAR = date.today().year
 PREPROCSSING_OBJECT_FILE_NAME = "preprocessing.pkl"
@@ -65,3 +63,4 @@ MODEL Evaluation related constants
 MODEL_EVALUATION_CHANGED_THRESHOLD_SCORE: float = 0.02
 MODEL_BUCKET_NAME = "vehicle-insurance-proj-s3"
 MODEL_PUSHER_S3_KEY = "model-registry"
+MODEL_FILE_NAME = "model.pkl"

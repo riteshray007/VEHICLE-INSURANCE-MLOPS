@@ -15,7 +15,7 @@ class ModelPusher:
         :param model_evaluation_artifact: Output reference of data evaluation artifact stage
         :param model_pusher_config: Configuration for model pusher
         """
-        self.s3 = SimpleStorageService()
+        # self.s3 = SimpleStorageService()
         self.model_evaluation_artifact = model_evaluation_artifact
         self.model_pusher_config = model_pusher_config
         self.proj1_estimator = Proj1Estimator(bucket_name=model_pusher_config.bucket_name,

@@ -3,7 +3,7 @@ from src.exception import MyException
 from src.entity.estimator import MyModel
 import sys
 from pandas import DataFrame
-
+from src.logger import logging
 
 class Proj1Estimator:
     """
@@ -23,7 +23,9 @@ class Proj1Estimator:
 
     def is_model_present(self,model_path):
         try:
-            return self.s3.s3_key_path_available(bucket_name=self.bucket_name, s3_key=model_path)
+            is_present = self.s3.s3_key_path_available(bucket_name=self.bucket_name, s3_key=model_path)
+            logging.info(f"model previously present or not - {is_present}")
+            return is_present
         except MyException as e:
             print(e)
             return False
@@ -38,7 +40,7 @@ class Proj1Estimator:
 
     def save_model(self,from_file,remove:bool=False)->None:
         """
-        Save the model to the model_path
+        Save the model to the model_path( remote like aws_s3 etc  )
         :param from_file: Your local system model path
         :param remove: By default it is false that mean you will have your model locally available in your system folder
         :return:

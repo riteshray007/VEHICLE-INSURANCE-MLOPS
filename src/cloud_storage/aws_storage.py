@@ -75,10 +75,10 @@ class SimpleStorageService:
     def get_bucket(self, bucket_name: str) -> Bucket:
         """
         Retrieves the S3 bucket object based on the provided bucket name.
-
+    
         Args:
             bucket_name (str): The name of the S3 bucket.
-
+    
         Returns:
             Bucket: S3 bucket object.
         """

@@ -131,10 +131,11 @@ class TrainPipeline:
             model_trainer_artifact = self.start_model_trainer(data_transformation_artifact=data_transformation_artifact)
             model_evaluation_artifact = self.start_model_evaluation(data_ingestion_artifact=data_ingestion_artifact,
                                                                     model_trainer_artifact=model_trainer_artifact)
-            # if not model_evaluation_artifact.is_model_accepted:
-            #     logging.info(f"Model not accepted.")
-            #     return None
-            # model_pusher_artifact = self.start_model_pusher(model_evaluation_artifact=model_evaluation_artifact)
+            if not model_evaluation_artifact.is_model_accepted:
+                logging.info(f"Trained model is not accepted ")
+                logging.info('existing the pipeline as the trained model is not accepted for pushing into remote')
+                return None
+            model_pusher_artifact = self.start_model_pusher(model_evaluation_artifact=model_evaluation_artifact)
             
         except Exception as e:
             raise MyException(e, sys)
