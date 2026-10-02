@@ -136,6 +136,6 @@ class TrainPipeline:
                 logging.info('existing the pipeline as the trained model is not accepted for pushing into remote')
                 return None
             model_pusher_artifact = self.start_model_pusher(model_evaluation_artifact=model_evaluation_artifact)
-            
+            return model_evaluation_artifact
         except Exception as e:
             raise MyException(e, sys)

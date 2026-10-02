@@ -39,6 +39,8 @@ list_of_files = [
       "pyproject.toml",
       "config/model.yaml",
       "config/schema.yaml",
+      "static/css/style.css",
+      "templates/vehicledata.html"
 ]
 
 for filepath in list_of_files:

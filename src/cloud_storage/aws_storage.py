@@ -3,6 +3,7 @@ from src.configuration.aws_connection import S3Client
 from io import StringIO
 from typing import Union,List
 import os
+import dill
 import sys
 from src.logger import logging
 from mypy_boto3_s3.service_resource import Bucket
@@ -128,7 +129,7 @@ class SimpleStorageService:
             model_file = model_dir + "/" + model_name if model_dir else model_name
             file_object = self.get_file_object(model_file, bucket_name)
             model_obj = self.read_object(file_object, decode=False)
-            model = pickle.loads(model_obj)
+            model = dill.loads(model_obj)
             logging.info("Production model loaded from S3 bucket.")
             return model
         except Exception as e:
