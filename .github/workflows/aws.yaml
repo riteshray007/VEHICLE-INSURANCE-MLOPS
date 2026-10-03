@@ -4,12 +4,13 @@ on:
   push:
     branches: [main]
 
+env:
+  ECR_REPOSITORY: ${{ vars.ECR_REPO }}
+  IMAGE_TAG: ${{ github.sha }}
+
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-
-    outputs:
-      image: ${{ steps.image.outputs.image }}
 
     steps:
       - name: Checkout repository
@@ -27,31 +28,13 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v2
 
       - name: Build and push image
-        id: image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: ${{ secrets.ECR_REPO }}
-          IMAGE_TAG: ${{ github.sha }}
         run: |
           IMAGE="$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
           docker build -t "$IMAGE" .
           docker push "$IMAGE"
-
-          echo "image=$IMAGE" >> "$GITHUB_OUTPUT"
-          echo "Step output written: $IMAGE"
-        
-      - name: Verify image output
-        env:
-          IMAGE: ${{ steps.image.outputs.image }}
-        run: |
-          if [ -z "$IMAGE" ]; then
-            echo "ERROR: Build step output is empty."
-            exit 1
-          fi
-
-          echo "Build step output: $IMAGE"
-        
 
   deploy-to-ec2:
     needs: build-and-push
@@ -66,20 +49,21 @@ jobs:
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
 
       - name: Login to Amazon ECR
+        id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
       - name: Replace the running application container
         env:
-          IMAGE: ${{ needs.build-and-push.outputs.image }}
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         run: |
-          echo "Checking image received from build job..."
-
-          if [ -z "$IMAGE" ]; then
-            echo "ERROR: IMAGE is empty."
-            exit 1
+          IMAGE="$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+          
+          if [ -z "$ECR_REGISTRY" ] || [ -z "$ECR_REPOSITORY" ] || [ -z "$IMAGE_TAG" ]; then
+          echo "ERROR: An image URI component is empty."
+          exit 1
           fi
 
-          echo "Received image: $IMAGE"
+          echo "Deploying image: $IMAGE"
           docker pull "$IMAGE"
 
           docker rm -f vehicle-insurance || true
