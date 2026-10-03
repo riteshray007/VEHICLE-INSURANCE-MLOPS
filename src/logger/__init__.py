@@ -1,17 +1,18 @@
-import os
 import logging
 from logging.handlers import RotatingFileHandler
-from from_root import from_root
 from datetime import datetime
+from pathlib import Path
 
-LOG_DIR = 'logs'
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+LOG_DIR = PROJECT_ROOT / "logs"
 LOG_FILE = f"{datetime.now().strftime('%d_%m_%y_%H_%M')}.log"
-MAX_LOG_SIZE = 5*1024*1024   #----> 5mb
-BACKUP_COUNT = 3 # ---> number of backup files to keep
 
-log_dir_path = os.path.join(from_root() , LOG_DIR)
-os.makedirs(log_dir_path , exist_ok=True)
-log_file_path = os.path.join( log_dir_path , LOG_FILE )
+MAX_LOG_SIZE = 5 * 1024 * 1024
+BACKUP_COUNT = 3
+
+LOG_DIR.mkdir(parents=True, exist_ok=True)
+log_file_path = LOG_DIR / LOG_FILE
+
 
 def configure_logger():
       """
