@@ -39,6 +39,19 @@ jobs:
           docker push "$IMAGE"
 
           echo "image=$IMAGE" >> "$GITHUB_OUTPUT"
+          echo "Step output written: $IMAGE"
+        
+      - name: Verify image output
+        env:
+          IMAGE: ${{ steps.image.outputs.image }}
+        run: |
+          if [ -z "$IMAGE" ]; then
+            echo "ERROR: Build step output is empty."
+            exit 1
+          fi
+
+          echo "Build step output: $IMAGE"
+        
 
   deploy-to-ec2:
     needs: build-and-push
