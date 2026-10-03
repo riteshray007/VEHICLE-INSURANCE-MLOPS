@@ -59,7 +59,16 @@ jobs:
         env:
           IMAGE: ${{ needs.build-and-push.outputs.image }}
         run: |
+          echo "Checking image received from build job..."
+
+          if [ -z "$IMAGE" ]; then
+            echo "ERROR: IMAGE is empty."
+            exit 1
+          fi
+
+          echo "Received image: $IMAGE"
           docker pull "$IMAGE"
+
           docker rm -f vehicle-insurance || true
 
           docker run -d \
