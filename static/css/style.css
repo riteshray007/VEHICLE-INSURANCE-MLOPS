@@ -42,13 +42,6 @@ body {
     box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12);
 }
 
-.prediction-layout.has-result {
-    display: grid;
-    grid-template-columns: minmax(220px, 0.7fr) minmax(0, 1.3fr);
-    gap: 28px;
-    align-items: start;
-}
-
 .form-section {
     min-width: 0;
 }
@@ -134,11 +127,12 @@ form[action="/train"] {
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-height: 260px;
     padding: 32px 24px;
     text-align: center;
     border: 1px solid;
-    border-radius: 16px;
-    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+    border-radius: 14px;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
 }
 
 .result--yes {
@@ -192,12 +186,31 @@ form[action="/train"] {
 }
 
 @media (max-width: 820px) {
+    body {
+        padding: 16px 12px;
+    }
+
     .app-layout {
         flex-direction: column;
         align-items: center;
     }
+
+    .container {
+        width: 100%;
+        padding: 22px 18px;
+    }
+
     .result {
         width: 100%;
         max-width: 480px;
+        margin-top: 20px;
+    }
+
+    form {
+        grid-template-columns: 1fr;
+    }
+
+    h1 {
+        font-size: 1.5rem;
     }
 }
