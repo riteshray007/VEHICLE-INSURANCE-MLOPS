@@ -120,24 +120,24 @@ async def index(request: Request):
     )
 
 # Route to trigger the model training process
-@app.get("/train")
-async def trainRouteClient():
-    """
-    Endpoint to initiate the model training pipeline.
-    """
-    try:
-        train_pipeline = TrainPipeline()
-        evalution_artifact = train_pipeline.run_pipeline()
+# @app.get("/train")
+# async def trainRouteClient():
+#     """
+#     Endpoint to initiate the model training pipeline.
+#     """
+#     try:
+#         train_pipeline = TrainPipeline()
+#         evalution_artifact = train_pipeline.run_pipeline()
         
-        if evalution_artifact.is_model_accepted:
-            model_predictor.refresh_model()
-            return Response("Training successful. Production model refreshed.")
+#         if evalution_artifact.is_model_accepted:
+#             model_predictor.refresh_model()
+#             return Response("Training successful. Production model refreshed.")
         
-        return Response("Training successfull!!! but the trained model is not accepted ")
+#         return Response("Training successfull!!! but the trained model is not accepted ")
     
 
-    except Exception as e:
-        return Response(f"Error Occurred! {e}")
+#     except Exception as e:
+#         return Response(f"Error Occurred! {e}")
 
 # Route to handle form submission and make predictions
 @app.post("/")
